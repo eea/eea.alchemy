@@ -12,7 +12,7 @@ setup(name=NAME,
       description=("EEA Alchemy allows you to bulk auto-discover "
                    "geographical coverage, temporal coverage, keywords "
                    "and more"),
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
           "Framework :: Plone",
