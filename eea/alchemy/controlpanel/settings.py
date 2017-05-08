@@ -2,12 +2,12 @@
 """
 from zope.component import queryUtility
 from zope.interface import implements
+from zope.formlib import form
 from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 from eea.alchemy.controlpanel.interfaces import _
 from plone.app.controlpanel.form import ControlPanelForm
 from plone.registry.interfaces import IRegistry
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
-from zope.formlib import form
 
 class ControlPanel(ControlPanelForm):
     """ Diffbot API
@@ -166,4 +166,3 @@ class ControlPanelAdapter(SchemaAdapterBase):
         """ Enable / disable onlyExistingKeywords
         """
         self.settings.onlyExistingKeywords = value
-

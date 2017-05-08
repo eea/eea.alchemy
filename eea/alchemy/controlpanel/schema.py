@@ -4,11 +4,11 @@ from zope.interface import implements
 from zope.formlib.textwidgets import TextWidget
 from zope.formlib.widget import renderElement
 from zope.formlib.interfaces import ConversionError
-from plone.app.form.widgets import ListSequenceWidget
 from zope.schema.interfaces import IList
 from zope.schema.interfaces import ITuple
-from eea.alchemy.config import EEAMessageFactory as _
 from zope import schema
+from plone.app.form.widgets import ListSequenceWidget
+from eea.alchemy.config import EEAMessageFactory as _
 
 class ITable(IList):
     """ Interface for Table field

@@ -1,8 +1,8 @@
 """ Custom viewlets
 """
 from zope.component import queryAdapter
-from plone.app.layout.viewlets import common
 from zope.component.hooks import getSite
+from plone.app.layout.viewlets import common
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 

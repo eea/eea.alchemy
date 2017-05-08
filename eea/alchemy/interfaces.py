@@ -346,4 +346,3 @@ class IDiscoverRelatedItems(IDiscoverAdapter):
         [<ATDocument at ...new-article>]
 
     """
-

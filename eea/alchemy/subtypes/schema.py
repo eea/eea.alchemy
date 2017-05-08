@@ -36,4 +36,3 @@ class EEAAlchemySchemaExtender(object):
         """ Returns provenance list field
         """
         return self.fields
-
