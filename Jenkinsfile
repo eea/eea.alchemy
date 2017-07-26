@@ -12,27 +12,23 @@ git pull
 ../../bin/test -v -vv -s eea.alchemy
 '''
             }
-
-
           },
+
           "Plone4": {
             node(label: 'standalone') {
-              dir(path: '${WORKSPACE}/buildouts/plone4') {
                 sh '''
+cd /buildouts/plone4
 ./install.sh
-bin/buildout
-bin/test -v -vv -s eea.alchemy
+./bin/buildout
+./bin/test -v -vv -s eea.alchemy
 '''
-              }
-
             }
-
-
           },
+
           "Docker: WWW": {
             node(label: 'docker-1.10') {
               sh '''
-docker run --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
+docker run -i --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
 '''
             }
 
@@ -40,12 +36,15 @@ docker run --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s e
           },
           "Docker: Plone4": {
             node(label: 'docker-1.10') {
-              sh 'docker run --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy'
+              sh '''
+docker run -i --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
+'''
             }
           }
         )
       }
     }
+
     stage('Code Analysis') {
       steps {
         parallel(
