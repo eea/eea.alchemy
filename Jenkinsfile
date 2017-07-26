@@ -9,7 +9,7 @@ pipeline {
               sh '''
 git checkout master
 git pull
-bin/test -v -vv -s eea.alchemy
+../../bin/test -v -vv -s eea.alchemy
 '''
             }
 
@@ -17,7 +17,7 @@ bin/test -v -vv -s eea.alchemy
           },
           "Plone4": {
             node(label: 'standalone') {
-              dir(path: 'buildouts/plone4') {
+              dir(path: '${WORKSPACE}/buildouts/plone4') {
                 sh '''
 ./install.sh
 bin/buildout
@@ -31,7 +31,9 @@ bin/test -v -vv -s eea.alchemy
           },
           "Docker: WWW": {
             node(label: 'docker-1.10') {
-              sh 'docker run --rm eeacms/www:devel bash -c \'bin/develop up && bin/test -v -vv -s eea.alchemy\''
+              sh '''
+docker run --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
+'''
             }
 
 
@@ -40,16 +42,14 @@ bin/test -v -vv -s eea.alchemy
             node(label: 'docker-1.10') {
               sh 'docker run --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy'
             }
-
-
           }
         )
       }
     }
-    stage('Coverage/Report') {
+    stage('Code Analysis') {
       steps {
         parallel(
-          "Coverage/Report": {
+          "Tests Coverage": {
             dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
               sh '''
 ../../bin/coverage run ../../bin/xmltestreport -v -vv -s eea.alchemy
@@ -105,7 +105,6 @@ cp ../../parts/xmltestreport/testreports/*eea-alchemy*.xml xmltestreport/
           openTasks(excludePattern: '**/*.png, **/*.gif,  **/*.jpg, **/*.zip, **/*.ppt, **/*.jar,   **/*.stx, **/CHANGES.txt, **/HISTORY.txt, **/INSTALL.txt, **/*.rst, **/CHANGELOG.txt, **/ChangeLog')
           junit(testResults: '**/xmltestreport/*.xml', healthScaleFactor: 1)
         }
-
       }
     }
   }
