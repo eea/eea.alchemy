@@ -17,7 +17,7 @@ git pull
           "Plone4": {
             node(label: 'standalone') {
                 sh '''
-cd /buildouts/plone4
+cd buildouts/plone4
 ./install.sh
 ./bin/buildout
 ./bin/test -v -vv -s eea.alchemy
