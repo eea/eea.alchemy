@@ -2,7 +2,9 @@ pipeline {
   agent any
   stages {
     stage{'Checkout'} {
-        git url: 'https://github.com/eea/eea.alchemy.git'
+        steps {
+            git url: 'https://github.com/eea/eea.alchemy.git'
+        }
     }
 
     stage('Tests') {
