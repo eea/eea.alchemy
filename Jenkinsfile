@@ -20,8 +20,8 @@ git pull
               git(url: 'https://github.com/eea/eea.alchemy.git', changelog: true)
               sh '''cd buildouts/plone4
 ./install.sh
-./bin/buildout
-./bin/test -v -vv -s eea.alchemy
+bin/python bin/buildout
+bin/python bin/test -v -vv -s eea.alchemy
 '''
             }
             
