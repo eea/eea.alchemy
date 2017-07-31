@@ -12,8 +12,9 @@ git pull
 ../../bin/test -v -vv -s eea.alchemy
 '''
             }
-          },
 
+
+          },
           "Plone4": {
             node(label: 'standalone') {
                 sh '''
@@ -24,19 +25,19 @@ echo env.WORKSPACE
 echo "====="
 echo env
 echo "===="
-
 cd buildouts/plone4
 ./install.sh
 ./bin/buildout
 ./bin/test -v -vv -s eea.alchemy
 '''
             }
-          },
 
+
+          },
           "Docker: WWW": {
             node(label: 'docker-1.10') {
               sh '''
-docker run -i --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
+docker run -i --net=host --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
 '''
             }
 
@@ -45,14 +46,15 @@ docker run -i --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -
           "Docker: Plone4": {
             node(label: 'docker-1.10') {
               sh '''
-docker run -i --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
+docker run -i --net=host --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
 '''
             }
+
+
           }
         )
       }
     }
-
     stage('Code Analysis') {
       steps {
         parallel(
@@ -112,6 +114,7 @@ cp ../../parts/xmltestreport/testreports/*eea-alchemy*.xml xmltestreport/
           openTasks(excludePattern: '**/*.png, **/*.gif,  **/*.jpg, **/*.zip, **/*.ppt, **/*.jar,   **/*.stx, **/CHANGES.txt, **/HISTORY.txt, **/INSTALL.txt, **/*.rst, **/CHANGELOG.txt, **/ChangeLog')
           junit(testResults: '**/xmltestreport/*.xml', healthScaleFactor: 1)
         }
+
       }
     }
   }
