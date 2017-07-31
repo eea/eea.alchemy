@@ -1,6 +1,10 @@
 pipeline {
   agent any
   stages {
+    stage{'Checkout'} {
+        git url: 'https://github.com/eea/eea.alchemy.git'
+    }
+
     stage('Tests') {
       steps {
         parallel(
@@ -18,7 +22,7 @@ git pull
           "Plone4": {
             node(label: 'standalone') {
                 sh '''
-cd $WORKSPACE/buildouts/plone4
+cd buildouts/plone4
 ./install.sh
 ./bin/buildout
 ./bin/test -v -vv -s eea.alchemy
