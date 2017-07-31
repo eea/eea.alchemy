@@ -17,6 +17,14 @@ git pull
           "Plone4": {
             node(label: 'standalone') {
                 sh '''
+echo "====="
+echo $PWD
+echo $WORKSPACE
+echo env.WORKSPACE
+echo "====="
+echo env
+echo "===="
+
 cd buildouts/plone4
 ./install.sh
 ./bin/buildout
