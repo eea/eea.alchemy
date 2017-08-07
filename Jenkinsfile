@@ -18,7 +18,8 @@ git pull
           "Plone4": {
             node(label: 'standalone') {
               git(url: 'https://github.com/eea/eea.alchemy.git', changelog: true)
-              sh '''cd buildouts/plone4
+              sh '''
+cd buildouts/plone4
 ./install.sh
 bin/python bin/buildout
 bin/python bin/test -v -vv -s eea.alchemy
@@ -30,8 +31,9 @@ bin/python bin/test -v -vv -s eea.alchemy
           "Docker: WWW": {
             node(label: 'docker-1.10') {
               sh '''
-docker run -i --net=host --rm eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
-'''
+NAME="$BUILD_TAG-www"
+docker run -i --net=host --name=$NAME eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
+docker rm -v $NAME'''
             }
             
             
@@ -39,8 +41,9 @@ docker run -i --net=host --rm eeacms/www:devel bash -c 'bin/develop up && bin/te
           "Docker: Plone4": {
             node(label: 'docker-1.10') {
               sh '''
-docker run -i --net=host --rm -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
-'''
+NAME="$BUILD_TAG-plone4"
+docker run -i --net=host --name=$NAME -v /plone/instance/parts -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
+docker rm -v $NAME'''
             }
             
             
