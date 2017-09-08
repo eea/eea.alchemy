@@ -4,7 +4,7 @@ pipeline {
     stage('Tests') {
       steps {
         parallel(
-          },
+
           "WWW": {
             node(label: 'docker-1.13') {
               sh '''
@@ -13,6 +13,7 @@ docker run -i --net=host --name=$NAME eeacms/www-devel /debug.sh  bin/test -v -v
 docker rm -v $NAME'''
             }
           },
+
           "KGS": {
             node(label: 'docker-1.13') {
               sh '''
@@ -21,6 +22,7 @@ docker run -i --net=host --name=$NAME eeacms/kgs-devel /debug.sh  bin/test --tes
 docker rm -v $NAME'''
             }
           },
+
           "Plone4": {
             node(label: 'docker-1.13') {
               sh '''
@@ -32,9 +34,11 @@ docker rm -v $NAME'''
         )
       }
     }
+
     stage('Code Analysis') {
       steps {
         parallel(
+
           "ZPT Lint": {
             node(label: 'docker-1.13') {
               sh '''
