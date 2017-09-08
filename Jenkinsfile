@@ -4,49 +4,30 @@ pipeline {
     stage('Tests') {
       steps {
         parallel(
+          },
           "WWW": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '''
-git checkout master
-git pull
-../../bin/test -v -vv -s eea.alchemy
-'''
-            }
-            
-            
-          },
-          "Plone4": {
-            node(label: 'standalone') {
-              git(url: 'https://github.com/eea/eea.alchemy.git', changelog: true)
-              sh '''
-cd buildouts/plone4
-./install.sh
-bin/python bin/buildout
-bin/python bin/test -v -vv -s eea.alchemy
-'''
-            }
-            
-            
-          },
-          "Docker: WWW": {
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-www"
-docker run -i --net=host --name=$NAME eeacms/www:devel bash -c 'bin/develop up && bin/test -v -vv -s eea.alchemy'
+docker run -i --net=host --name=$NAME eeacms/www-devel /debug.sh  bin/test -v -vv -s eea.alchemy
 docker rm -v $NAME'''
             }
-            
-            
           },
-          "Docker: Plone4": {
+          "KGS": {
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-kgs"
+docker run -i --net=host --name=$NAME eeacms/kgs-devel /debug.sh  bin/test --test-path /plone/instance/src/eea.alchemy -v -vv -s eea.alchemy
+docker rm -v $NAME'''
+            }
+          },
+          "Plone4": {
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-plone4"
-docker run -i --net=host --name=$NAME -v /plone/instance/parts -e BUILDOUT_EGGS=eea.alchemy -e BUILDOUT_DEVELOP=src/eea.alchemy eeacms/plone-test bin/test -v -vv -s eea.alchemy
+docker run -i --net=host --name=$NAME -v /plone/instance/parts -e ADDONS=eea.alchemy -e DEVELOP=src/eea.alchemy eeacms/plone-test -s eea.alchemy
 docker rm -v $NAME'''
             }
-            
-            
           }
         )
       }
@@ -54,63 +35,61 @@ docker rm -v $NAME'''
     stage('Code Analysis') {
       steps {
         parallel(
-          "Tests Coverage": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '''
-../../bin/coverage run ../../bin/xmltestreport -v -vv -s eea.alchemy
-../../bin/report xml --include=*eea/alchemy*
-mkdir -p xmltestreport
-cp ../../parts/xmltestreport/testreports/*eea-alchemy*.xml xmltestreport/
-'''
-            }
-            
-            
-          },
           "ZPT Lint": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '../../bin/zptlint-test'
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-zptlint"
+docker run -i --net=host --name=$NAME eeacms/zptlint https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
             }
-            
-            
           },
+
+          "JS Lint": {
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-jslint"
+docker run -i --net=host --name=$NAME eeacms/jslint4java https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
+            }
+          },
+
+          "CSS Lint": {
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-csslint"
+docker run -i --net=host --name=$NAME eeacms/csslint https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
+            }
+          },
+
           "PyFlakes": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '../../bin/pyflakes-test'
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-pyflakes"
+docker run -i --net=host --name=$NAME eeacms/pyflakes https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
             }
-            
-            
           },
+
           "PyLint": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '../../bin/pylint-test'
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-pylint"
+docker run -i --net=host --name=$NAME eeacms/pylint https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
             }
-            
-            
           },
-          "JSLint": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh '../../bin/jslint-test eea'
-            }
-            
-            
-          },
+
           "i18n": {
-            dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-              sh 'find . -name *.pt | xargs ../../bin/i18ndude find-untranslated -n | wc -l'
+            node(label: 'docker-1.13') {
+              sh '''
+NAME="$BUILD_TAG-i18n"
+docker run -i --net=host --name=$NAME eeacms/i18ndude https://github.com/eea/eea.alchemy.git
+docker rm -v $NAME'''
             }
-            
-            
-          }
+          },
+
         )
-      }
-    }
-    stage('Report') {
-      steps {
-        dir(path: '/var/jenkins_home/worker/workspace/www.eea.europa.eu-hudson/src/eea.alchemy') {
-          openTasks(excludePattern: '**/*.png, **/*.gif,  **/*.jpg, **/*.zip, **/*.ppt, **/*.jar,   **/*.stx, **/CHANGES.txt, **/HISTORY.txt, **/INSTALL.txt, **/*.rst, **/CHANGELOG.txt, **/ChangeLog')
-          junit(testResults: '**/xmltestreport/*.xml', healthScaleFactor: 1)
-        }
-        
       }
     }
   }
