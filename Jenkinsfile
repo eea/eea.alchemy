@@ -3,7 +3,7 @@ pipeline {
 
   environment {
         GIT_NAME = "eea.alchemy"
-        GIT_SRC = "https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME'
+        GIT_SRC = "https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
     }
 
   stages {
