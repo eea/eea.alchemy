@@ -1,5 +1,11 @@
 pipeline {
   agent any
+
+  environment {
+        GIT_NAME = "eea.alchemy"
+        GIT_SRC = "https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME'
+    }
+
   stages {
     stage('Tests') {
       steps {
@@ -9,7 +15,7 @@ pipeline {
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-www"
-docker run -i --net=host --name=$NAME eeacms/www-devel /debug.sh  bin/test -v -vv -s eea.alchemy
+docker run -i --net=host --name="$NAME" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" eeacms/www-devel /debug.sh bin/test -v -vv -s $GIT_NAME
 docker rm -v $NAME'''
             }
           },
@@ -18,7 +24,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-kgs"
-docker run -i --net=host --name=$NAME eeacms/kgs-devel /debug.sh  bin/test --test-path /plone/instance/src/eea.alchemy -v -vv -s eea.alchemy
+docker run -i --net=host --name="$NAME" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" eeacms/kgs-devel /debug.sh bin/test --test-path /plone/instance/src/$GIT_NAME -v -vv -s $GIT_NAME
 docker rm -v $NAME'''
             }
           },
@@ -27,7 +33,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-plone4"
-docker run -i --net=host --name=$NAME -v /plone/instance/parts -e ADDONS=eea.alchemy -e DEVELOP=src/eea.alchemy eeacms/plone-test -s eea.alchemy
+docker run -i --net=host --name="$NAME" -v /plone/instance/parts -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" eeacms/plone-test -v -vv -s $GIT_NAME
 docker rm -v $NAME'''
             }
           }
@@ -43,7 +49,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-zptlint"
-docker run -i --net=host --name=$NAME eeacms/zptlint https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/zptlint
 docker rm -v $NAME'''
             }
           },
@@ -52,7 +58,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-jslint"
-docker run -i --net=host --name=$NAME eeacms/jslint4java https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/jslint4java
 docker rm -v $NAME'''
             }
           },
@@ -61,7 +67,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-csslint"
-docker run -i --net=host --name=$NAME eeacms/csslint https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/csslint
 docker rm -v $NAME'''
             }
           },
@@ -70,7 +76,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-pyflakes"
-docker run -i --net=host --name=$NAME eeacms/pyflakes https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pyflakes
 docker rm -v $NAME'''
             }
           },
@@ -79,7 +85,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-pylint"
-docker run -i --net=host --name=$NAME eeacms/pylint https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pylint
 docker rm -v $NAME'''
             }
           },
@@ -88,7 +94,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-i18n"
-docker run -i --net=host --name=$NAME eeacms/i18ndude https://github.com/eea/eea.alchemy.git
+docker run -i --net=host --name=$NAME -e GIT_SRC="$GIT_SRC" eeacms/i18ndude
 docker rm -v $NAME'''
             }
           },
