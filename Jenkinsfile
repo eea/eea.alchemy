@@ -3,7 +3,6 @@ pipeline {
 
   environment {
         GIT_NAME = "eea.alchemy"
-        GIT_SRC = "https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
     }
 
   stages {
@@ -49,6 +48,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-zptlint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/zptlint
 docker rm -v $NAME'''
             }
@@ -58,6 +58,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-jslint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/jslint4java
 docker rm -v $NAME'''
             }
@@ -67,6 +68,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-csslint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/csslint
 docker rm -v $NAME'''
             }
@@ -76,6 +78,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-pyflakes"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pyflakes
 docker rm -v $NAME'''
             }
@@ -85,6 +88,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-pylint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pylint
 docker rm -v $NAME'''
             }
@@ -94,6 +98,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-i18n"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name=$NAME -e GIT_SRC="$GIT_SRC" eeacms/i18ndude
 docker rm -v $NAME'''
             }
