@@ -46,6 +46,7 @@ docker rm -v $NAME'''
 
           "ZPT Lint": {
             node(label: 'docker-1.13') {
+              script {
               try {
                 sh '''
 NAME="$BUILD_TAG-zptlint"
@@ -56,6 +57,7 @@ docker rm -v $NAME'''
                 echo "Caught: ${err}"
                 currentBuild.result = 'UNSTABLE'
               }
+            }
             }
           },
 
