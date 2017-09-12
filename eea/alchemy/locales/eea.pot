@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-08-06 13:56+0000\n"
+"POT-Creation-Date: 2017-09-12 11:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,10 @@ msgstr ""
 
 #: ../../alchemy/controlpanel/settings.py:16
 msgid "Alchemy Settings"
+msgstr ""
+
+#: ../../alchemy/profiles.zcml:16
+msgid "Alchemy profile"
 msgstr ""
 
 #: ../../alchemy/controlpanel/settings.py:17
@@ -81,6 +85,10 @@ msgstr ""
 msgid "Do not apply auto-tagging if the tag is a child of the following HTML elements. (use CSS3 selectors like: div.documentByLine) By default auto-tagging will not be applied on text that is already a child of an <a> HTML tag"
 msgstr ""
 
+#: ../../alchemy/profiles.zcml:16
+msgid "EEA Alchemy"
+msgstr ""
+
 #: ../../alchemy/controlpanel/interfaces.py:84
 msgid "Enable auto-relations"
 msgstr ""
@@ -89,7 +97,7 @@ msgstr ""
 msgid "Enable auto-tagging"
 msgstr ""
 
-#: ../../alchemy/interfaces.py:180
+#: ../../alchemy/interfaces.py:231
 msgid "Friendly name"
 msgstr ""
 
@@ -125,7 +133,7 @@ msgstr ""
 msgid "Lookup these fields for internal links"
 msgstr ""
 
-#: ../../alchemy/interfaces.py:181
+#: ../../alchemy/interfaces.py:232
 msgid "Metadata"
 msgstr ""
 
@@ -133,7 +141,7 @@ msgstr ""
 msgid "Provide token from http://www.alchemyapi.com/api/register.html"
 msgstr ""
 
-#: ../../alchemy/discover/adapters/relations.py:20
+#: ../../alchemy/discover/adapters/relations.py:25
 msgid "Related items"
 msgstr ""
 
@@ -141,7 +149,7 @@ msgstr ""
 msgid "Site Setup"
 msgstr ""
 
-#: ../../alchemy/interfaces.py:182
+#: ../../alchemy/interfaces.py:233
 msgid "Tags"
 msgstr ""
 
@@ -156,4 +164,3 @@ msgstr ""
 #: ../../alchemy/browser/zpt/tool.pt:32
 msgid "Use the form bellow to auto-discover and update documents metadata (like location, keywords, related items, etc). Start by selecting Content-Types for which you want to discover metadata."
 msgstr ""
-
