@@ -53,10 +53,9 @@ NAME="$BUILD_TAG-zptlint"
 GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/zptlint
 docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
                 } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
+                  echo "Unstable: ${err}"
+                  throw err
                 }
               }
             }
@@ -71,28 +70,9 @@ NAME="$BUILD_TAG-jslint"
 GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/jslint4java
 docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
                 } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
-                }
-              }
-            }
-          },
-
-          "CSS Lint": {
-            node(label: 'docker-1.13') {
-              script {
-                try {
-                  sh '''
-NAME="$BUILD_TAG-csslint"
-GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
-docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/csslint
-docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
-                } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
+                  echo "Unstable: ${err}"
+                  throw err
                 }
               }
             }
@@ -107,28 +87,9 @@ NAME="$BUILD_TAG-pyflakes"
 GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pyflakes
 docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
                 } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
-                }
-              }
-            }
-          },
-
-          "PyLint": {
-            node(label: 'docker-1.13') {
-              script {
-                try {
-                  sh '''
-NAME="$BUILD_TAG-pylint"
-GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
-docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pylint
-docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
-                } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
+                  echo "Unstable: ${err}"
+                  throw err
                 }
               }
             }
@@ -143,17 +104,90 @@ NAME="$BUILD_TAG-i18n"
 GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name=$NAME -e GIT_SRC="$GIT_SRC" eeacms/i18ndude
 docker rm -v $NAME'''
-                  currentBuild.result = 'SUCCESS'
                 } catch (err) {
-                  echo "Caught: ${err}"
-                  currentBuild.result = 'UNSTABLE'
+                  echo "Unstable: ${err}"
+                  throw err
+                }
+              }
+            }
+          }
+        )
+      }
+    }
+
+    stage('Code Syntax') {
+      steps {
+        parallel(
+
+          "JS Hint": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-jshint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/jshint
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
                 }
               }
             }
           },
 
+          "CSS Lint": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-csslint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/csslint
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                }
+              }
+            }
+          },
+
+          "PEP8": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-pep8"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pep8
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                }
+              }
+            }
+          },
+
+
+          "PyLint": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-pylint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pylint
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                }
+              }
+            }
+          }
+
         )
       }
     }
+
+
   }
 }
