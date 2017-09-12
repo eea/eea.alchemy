@@ -32,7 +32,7 @@ docker rm -v $NAME'''
             node(label: 'docker-1.13') {
               sh '''
 NAME="$BUILD_TAG-plone4"
-docker run -i --net=host --name="$NAME" -v /plone/instance/parts -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" eeacms/plone-test -v -vv -s $GIT_NAME
+docker run -i --net=host --name="$NAME" -v /plone/instance/parts -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" eeacms/plone-test:4 -v -vv -s $GIT_NAME
 docker rm -v $NAME'''
             }
           }
