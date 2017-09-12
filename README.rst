@@ -2,7 +2,7 @@
 EEA Alchemy
 ===========
 .. image:: http://ci.eionet.europa.eu/job/eea/job/eea.alchemy/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/blue/organizations/jenkins/eea/eea.alchemy/branches
+  :target: http://ci.eionet.europa.eu/blue/organizations/jenkins/eea%2Feea.alchemy/branches/
 
 Auto-discover geographical coverage, temporal coverage, related items and
 keywords from documents common metadata (title, description, body, etc),
