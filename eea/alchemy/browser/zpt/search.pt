@@ -6,7 +6,7 @@
           <span i18n:translate="">Content-Types</span>
         </legend>
         <div class="alchemy-filter">
-          <input type="text" value="" placeholder="Filter items" />
+          <input type="text" value="" placeholder="Filter items" i18n:attributes="placeholder" />
         </div>
         <div class="alchemy-box-content">
         <ul>
@@ -32,7 +32,7 @@
           <span i18n:translate="">Look in</span>
         </legend>
         <div class="alchemy-filter">
-          <input type="text" value="" placeholder="Filter items" />
+          <input type="text" value="" placeholder="Filter items" i18n:attributes="placeholder" />
         </div>
         <div class="alchemy-box-content">
           <ul>
@@ -58,7 +58,7 @@
          <span i18n:translate="">Look for</span>
         </legend>
         <div class="alchemy-filter">
-          <input type="text" value="" placeholder="Filter items" />
+          <input type="text" value="" placeholder="Filter items" i18n:attributes="placeholder" />
         </div>
         <div class="alchemy-box-content">
           <ul>
@@ -107,9 +107,9 @@
         <div class="alchemy-console-buttons">
           <div class="auto-scrolling">
             <input type="checkbox" id="auto-scrolling" name="auto-scrolling" checked="checked" />
-            <label for="auto-scrolling">Auto scrolling</label>
+            <label for="auto-scrolling" i18n:translate="">Auto scrolling</label>
           </div>
-          <button class="btn btn-mini btn-inverse">Clear</button>
+          <button class="btn btn-mini btn-inverse" i18n:translate="">Clear</button>
         </div>
       </fieldset>
     </div>
