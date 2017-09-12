@@ -78,6 +78,47 @@ docker rm -v $NAME'''
             }
           },
 
+          "PyFlakes": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-pyflakes"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pyflakes
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                  throw err
+                }
+              }
+            }
+          },
+
+          "i18n": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-i18n"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name=$NAME -e GIT_SRC="$GIT_SRC" eeacms/i18ndude
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                  throw err
+                }
+              }
+            }
+          }
+        )
+      }
+    }
+
+    stage('Code Syntax') {
+      steps {
+        parallel(
+
           "JS Hint": {
             node(label: 'docker-1.13') {
               script {
@@ -126,22 +167,6 @@ docker rm -v $NAME'''
             }
           },
 
-          "PyFlakes": {
-            node(label: 'docker-1.13') {
-              script {
-                try {
-                  sh '''
-NAME="$BUILD_TAG-pyflakes"
-GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
-docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pyflakes
-docker rm -v $NAME'''
-                } catch (err) {
-                  echo "Unstable: ${err}"
-                  throw err
-                }
-              }
-            }
-          },
 
           "PyLint": {
             node(label: 'docker-1.13') {
@@ -157,26 +182,12 @@ docker rm -v $NAME'''
                 }
               }
             }
-          },
-
-          "i18n": {
-            node(label: 'docker-1.13') {
-              script {
-                try {
-                  sh '''
-NAME="$BUILD_TAG-i18n"
-GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
-docker run -i --net=host --name=$NAME -e GIT_SRC="$GIT_SRC" eeacms/i18ndude
-docker rm -v $NAME'''
-                } catch (err) {
-                  echo "Unstable: ${err}"
-                }
-              }
-            }
-          },
+          }
 
         )
       }
     }
+
+
   }
 }
