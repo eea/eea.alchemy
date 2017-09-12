@@ -78,6 +78,22 @@ docker rm -v $NAME'''
             }
           },
 
+          "JS Hint": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-jshint"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/jshint
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                }
+              }
+            }
+          },
+
           "CSS Lint": {
             node(label: 'docker-1.13') {
               script {
@@ -86,6 +102,22 @@ docker rm -v $NAME'''
 NAME="$BUILD_TAG-csslint"
 GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
 docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/csslint
+docker rm -v $NAME'''
+                } catch (err) {
+                  echo "Unstable: ${err}"
+                }
+              }
+            }
+          },
+
+          "PEP8": {
+            node(label: 'docker-1.13') {
+              script {
+                try {
+                  sh '''
+NAME="$BUILD_TAG-pep8"
+GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME"
+docker run -i --net=host --name="$NAME" -e GIT_SRC="$GIT_SRC" eeacms/pep8
 docker rm -v $NAME'''
                 } catch (err) {
                   echo "Unstable: ${err}"
