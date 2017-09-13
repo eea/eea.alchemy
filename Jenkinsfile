@@ -190,22 +190,19 @@ docker rm -v $NAME'''
 
   }
 
-
   post {
-    always {
-      steps {
-        script {
-          def color = '#FFFF00'
-          if ($BUILD_STATUS == 'SUCCESSFUL') {
-            color = '#00FF00'
-          } else if ($BUILD_STATUS == 'FAILED') {
-            color = '#FF0000'
-          }
-          slackSend (color: color, message: "${env.BUILD_STATUS}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-
-          emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
+    changed {
+      script {
+        def color = '#FFFF00'
+        if ($BUILD_STATUS == 'SUCCESSFUL') {
+          color = '#00FF00'
+        } else if ($BUILD_STATUS == 'FAILED') {
+          color = '#FF0000'
         }
+        slackSend (color: color, message: "$BUILD_STATUS: Job '$JOB_NAME [$BUILD_NUMBER]' ($BUILD_URL)")
+
+        emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
       }
     }
   }
-}
+}            
