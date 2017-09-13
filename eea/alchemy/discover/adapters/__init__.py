@@ -27,22 +27,6 @@ class Discover(object):
         self._metadata = ('title', 'description')
 
     @property
-    def key(self):
-        """ AlchemyAPI key
-        """
-        if self._key is not None:
-            return self._key
-
-        site = getSite()
-        settings = queryAdapter(site, IAlchemySettings)
-        self._key = settings.token
-        if not self._key:
-            logger.exception(
-                'AlchemyAPI key not set in Site Setup > Alchemy Settings')
-            return self._key
-        return self._key
-
-    @property
     def metadata(self):
         """ Get metadata
         """

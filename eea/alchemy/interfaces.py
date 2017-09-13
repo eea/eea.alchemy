@@ -4,26 +4,6 @@ from zope.interface import Interface
 from zope import schema
 from eea.alchemy.config import EEAMessageFactory as _
 
-class IAlchemyAPI(Interface):
-    """ Utility to use AlchemyAPI (http://alchemyapi.com) using zope.components
-
-    >>> from zope.component import getUtility
-    >>> from eea.alchemy.interfaces import IAlchemyAPI
-    >>> util = getUtility(IAlchemyAPI)
-    >>> util.setAPIKey('12345')
-
-    >>> res = util.TextGetRankedNamedEntities(
-    ...          'Formation of new land cover in the region of Valencia, Spain')
-
-    >>> entities = res['entities']
-    >>> [entity['text'] for entity in entities]
-    ['Spain', 'Valencia']
-
-    >>> [entity['type'] for entity in entities]
-    ['Country', 'City']
-
-    """
-
 class IAlchemyDiscoverable(Interface):
     """ Marker interface for discoverable items
     """
