@@ -206,7 +206,7 @@ docker rm -v $NAME'''
         slackSend (color: color, message: summary)
       }
 
-      emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
+      emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS', body: '$DEFAULT_CONTENT')
     }
   }
 }            
