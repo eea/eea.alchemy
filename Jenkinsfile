@@ -191,22 +191,23 @@ docker rm -v $NAME'''
   }
 
   post {
-    changed {
+    always {
       script {
         def color = '#FFFF00'
-        def status = currentBuild.result
+        def url = "${env.BUILD_URL}/display/redirect"
+        def status = currentBuild.currentResult
         def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-        def summary = "${subject} (${env.BUILD_URL})"
+        def summary = "${subject} (${url})"
+        def details = "Check console output at ${url}"
 
-        if (status == 'SUCCESSFUL') {
+        if (status == 'SUCCESS') {
           color = '#00FF00'
-        } else if (currentBuild.result == 'FAILED') {
+        } else if (status == 'FAILURE') {
           color = '#FF0000'
         }
         slackSend (color: color, message: summary)
+        emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS', body: details)
       }
-
-      emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS', body: '$DEFAULT_CONTENT')
     }
   }
 }            
