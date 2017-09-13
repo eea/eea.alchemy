@@ -194,15 +194,19 @@ docker rm -v $NAME'''
     changed {
       script {
         def color = '#FFFF00'
-        if ($BUILD_STATUS == 'SUCCESSFUL') {
+        def status = currentBuild.result
+        def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+        def summary = "${subject} (${env.BUILD_URL})"
+
+        if (status == 'SUCCESSFUL') {
           color = '#00FF00'
-        } else if ($BUILD_STATUS == 'FAILED') {
+        } else if (currentBuild.result == 'FAILED') {
           color = '#FF0000'
         }
-        slackSend (color: color, message: "$BUILD_STATUS: Job '$JOB_NAME [$BUILD_NUMBER]' ($BUILD_URL)")
-
-        emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
+        slackSend (color: color, message: summary)
       }
+
+      emailext (subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
     }
   }
 }            
