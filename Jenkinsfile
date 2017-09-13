@@ -193,18 +193,11 @@ docker rm -v $NAME'''
 
   post {
     always {
-      def message = "${currentBuild.result}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
 
-      def colorCode = '#FFFF00'
-      if (currentBuild.result == 'FAILED') {
-        colorCode = '#FF0000'
-      } else if (buildStatus == 'SUCCESSFUL') {
-        colorCode = '#00FF00'
-      }
-
-      slackSend (color: colorCode, message: message)
+      slackSend (color: '#FF0000', message: "${currentBuild.result}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
       emailext (body: '$DEFAULT_BODY', subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS')
+
     }
   }
 }
