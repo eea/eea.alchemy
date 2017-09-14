@@ -95,7 +95,7 @@ pipeline {
                 try {
                   sh '''docker run -i --net=host --name=$BUILD_TAG-i18n -e GIT_SRC="https://github.com/eea/$GIT_NAME.git --branch=$BRANCH_NAME" eeacms/i18ndude'''
                 } finally {
-                  sh '''docker rm -v $$BUILD_TAG-i18n'''
+                  sh '''docker rm -v $BUILD_TAG-i18n'''
                 }
               }
             }
