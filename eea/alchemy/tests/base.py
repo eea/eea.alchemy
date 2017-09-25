@@ -6,8 +6,6 @@ from plone.uuid.interfaces import IUUID
 from Products.Five import fiveconfigure
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
-from zope.component import provideUtility
-from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 import eea.alchemy
 try:
     import eea.relations

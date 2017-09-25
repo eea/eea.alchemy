@@ -2,10 +2,7 @@
 """
 import logging
 from zope.interface import implements
-from zope.component import queryAdapter
-from zope.component.hooks import getSite
 from eea.alchemy.interfaces import IDiscoverAdapter
-from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 from eea.alchemy.config import EEAMessageFactory as _
 logger = logging.getLogger('eea.alchemy')
 

@@ -2,7 +2,6 @@
 """
 import logging
 from zope.interface import implements
-from zope.component import getUtility
 from eea.alchemy.interfaces import IDiscoverKeywords
 logger = logging.getLogger('eea.alchemy')
 
