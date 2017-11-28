@@ -76,7 +76,7 @@ class DiscoverGeoTags(Discover):
     def tags(self):
         """ Getter
         """
-        if not self.key:
+        if not getattr(self, 'key', None):
             return
 
         doc = self.context

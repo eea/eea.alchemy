@@ -1,8 +1,10 @@
 Changelog
 =========
 
-6.8.dev0 - (unreleased)
+7.0.dev0 - (unreleased)
 -----------------------
+* dropped AlchemyAPI integration
+  [valipod refs #86237]
 
 6.7 - (2017-11-07)
 ------------------

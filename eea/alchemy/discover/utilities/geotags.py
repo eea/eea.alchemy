@@ -2,8 +2,6 @@
 """
 import logging
 from zope.interface import implements
-from zope.component import getUtility
-from eea.alchemy.interfaces import IAlchemyAPI
 from eea.alchemy.interfaces import IDiscoverGeographicalCoverage
 logger = logging.getLogger('eea.alchemy')
 
@@ -33,33 +31,18 @@ class DiscoverGeographicalCoverage(object):
 
     @property
     def alchemy(self):
-        """ Alchemy API
+        """ Not Implemented. Alchemy API support dropped.
         """
-        if self._alchemy:
-            return self._alchemy
-
-        if not self.key:
-            logger.exception('You need to provide a valid Alchemy API key')
-            return self._alchemy
-
-        self._alchemy = getUtility(IAlchemyAPI)
-        self._alchemy.setAPIKey(self.key)
-        return self._alchemy
+        return None
 
     def __call__(self, key, text="", path=""):
         self._key = key
 
         if not self.alchemy:
-            logger.exception('You need to provide a valid Alchemy API key')
             return
 
-        try:
-            res = self.alchemy.TextGetRankedNamedEntities(text)
-        except Exception, err:
-            logger.exception("%s while discovering: %s", err, path)
-            return
-
-        for entity in res.get('entities', []):
+        # For future replacement of Alchemy API
+        for entity in []:
             etype = entity.get('type', '')
             if etype not in ENTITY_TYPES:
                 continue

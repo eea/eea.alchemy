@@ -36,19 +36,6 @@ class ControlPanelAdapter(SchemaAdapterBase):
         return self._settings
 
     @property
-    def token(self):
-        """ Get token
-        """
-        name = u"token"
-        return getattr(self.settings, name, IAlchemySettings[name].default)
-
-    @token.setter
-    def token(self, value):
-        """ Set token
-        """
-        self.settings.token = value
-
-    @property
     def autoTagging(self):
         """ Enable auto-tagging
         """
