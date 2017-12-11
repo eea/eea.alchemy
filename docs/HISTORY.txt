@@ -3,7 +3,9 @@ Changelog
 
 7.0.dev0 - (unreleased)
 -----------------------
-* dropped AlchemyAPI integration
+* Change: Replace eeacms/zptlint with eeacms/plone-test:4 zptlint
+  [avoinea refs #90415]
+* Change: Dropped AlchemyAPI integration
   [valipod refs #86237]
 
 6.7 - (2017-11-07)
