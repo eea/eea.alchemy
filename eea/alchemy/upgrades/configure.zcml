@@ -5,6 +5,18 @@
 
   <genericsetup:upgradeSteps
     source="*"
+    destination="7.0"
+    profile="eea.alchemy:default">
+
+    <genericsetup:upgradeStep
+      title="Remove Alchemy API support"
+      handler="eea.alchemy.upgrades.evolve70.upgrade"
+      />
+
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeSteps
+    source="*"
     destination="5.3"
     profile="eea.alchemy:default">
 

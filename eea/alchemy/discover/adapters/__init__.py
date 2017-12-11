@@ -2,10 +2,7 @@
 """
 import logging
 from zope.interface import implements
-from zope.component import queryAdapter
-from zope.component.hooks import getSite
 from eea.alchemy.interfaces import IDiscoverAdapter
-from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 from eea.alchemy.config import EEAMessageFactory as _
 logger = logging.getLogger('eea.alchemy')
 
@@ -25,22 +22,6 @@ class Discover(object):
         self._key = None
         self.field = 'subject'
         self._metadata = ('title', 'description')
-
-    @property
-    def key(self):
-        """ AlchemyAPI key
-        """
-        if self._key is not None:
-            return self._key
-
-        site = getSite()
-        settings = queryAdapter(site, IAlchemySettings)
-        self._key = settings.token
-        if not self._key:
-            logger.exception(
-                'AlchemyAPI key not set in Site Setup > Alchemy Settings')
-            return self._key
-        return self._key
 
     @property
     def metadata(self):

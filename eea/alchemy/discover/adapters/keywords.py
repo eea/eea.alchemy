@@ -99,6 +99,8 @@ class DiscoverTags(Discover):
     def tags(self):
         """ Getter
         """
+        if not getattr(self, 'key', None):
+            return
         doc = self.context
         getObject = getattr(doc, 'getObject', None)
         string = ""

@@ -8,13 +8,6 @@ from eea.alchemy.config import EEAMessageFactory as _
 class IAlchemySettings(Interface):
     """ Alchemy settings
     """
-    token = schema.TextLine(
-        title=_(u"Token"),
-        description=_(u"Provide token from "
-                      "http://www.alchemyapi.com/api/register.html"),
-        required=False,
-        default=u""
-    )
 
     autoTagging = schema.Bool(
         title=_(u'Enable auto-tagging'),

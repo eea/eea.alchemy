@@ -6,9 +6,6 @@ from plone.uuid.interfaces import IUUID
 from Products.Five import fiveconfigure
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
-from zope.component import provideUtility
-from eea.alchemy.tests.fake import FakeAlchemyAPI, IAlchemyAPI
-from eea.alchemy.controlpanel.interfaces import IAlchemySettings
 import eea.alchemy
 try:
     import eea.relations
@@ -36,8 +33,6 @@ def setup_eea_alchemy():
     if EEA_RELATIONS:
         ptc.installPackage('eea.relations')
     ptc.installPackage('eea.alchemy')
-
-    provideUtility(FakeAlchemyAPI(), IAlchemyAPI)
 
 extension_profiles = ('eea.alchemy:default',)
 if EEA_RELATIONS:
@@ -131,6 +126,3 @@ class EEAAlchemyFunctionalTestCase(ptc.FunctionalTestCase, EEAAlchemyTestCase):
         })
 
         self._page = page
-
-        atool = IAlchemySettings(self.portal)
-        atool.token = u'12345665766867'

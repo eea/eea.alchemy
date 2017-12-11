@@ -4,26 +4,6 @@ from zope.interface import Interface
 from zope import schema
 from eea.alchemy.config import EEAMessageFactory as _
 
-class IAlchemyAPI(Interface):
-    """ Utility to use AlchemyAPI (http://alchemyapi.com) using zope.components
-
-    >>> from zope.component import getUtility
-    >>> from eea.alchemy.interfaces import IAlchemyAPI
-    >>> util = getUtility(IAlchemyAPI)
-    >>> util.setAPIKey('12345')
-
-    >>> res = util.TextGetRankedNamedEntities(
-    ...          'Formation of new land cover in the region of Valencia, Spain')
-
-    >>> entities = res['entities']
-    >>> [entity['text'] for entity in entities]
-    ['Spain', 'Valencia']
-
-    >>> [entity['type'] for entity in entities]
-    ['Country', 'City']
-
-    """
-
 class IAlchemyDiscoverable(Interface):
     """ Marker interface for discoverable items
     """
@@ -88,12 +68,10 @@ class IDiscoverGeographicalCoverage(IDiscoverUtility):
           'text': 'Spain'
         }, ...]
 
-        >>> res.next()['text']
-        'Spain'
-
-        >>> res.next()['text']
-        'Valencia'
-
+        #TODO update test when AlchemyAPI replacement is integrated
+        When an AlchemyAPI replacement will be ready,
+        something like res.next()['text'] should produce 'Spain',
+        and then again 'Valencia'
 
         Keyword arguments:
         key -- Alchemy API authentication key
@@ -119,8 +97,9 @@ class IDiscoverKeywords(IDiscoverUtility):
           'text': 'new land cover'
         }, ...]
 
-        >>> res.next()['text']
-        'new land cover'
+        #TODO update test when AlchemyAPI replacement is integrated
+        When an AlchemyAPI replacement will be ready,
+        something like res.next()['text'] should produce 'new land cover'
 
         Keyword arguments:
         key -- Alchemy API authentication key
@@ -243,17 +222,17 @@ class IDiscoverGeoTags(IDiscoverAdapter):
         >>> discover = getAdapter(self.sandbox, IDiscoverAdapter,
         ...                       name=u'location')
         >>> discover.metadata = 'title'
-        >>> [tag.get('text', '') for tag in discover.tags]
-        ['Spain', 'Valencia']
-
-        >>> [tag.get('type', '') for tag in discover.tags]
-        ['Country', 'City']
-
         >>> discover.metadata = 'description'
-        >>> [tag.get('text', '') for tag in discover.tags]
-        ['Venice']
 
-        >>> [tag.get('type', '') for tag in discover.tags]
+        #TODO update test when AlchemyAPI replacement is integrated
+        When an AlchemyAPI replacement will be ready,
+        something like [tag.get('text', '') for tag in discover.tags]
+        should produce ['Spain', 'Valencia']
+        [tag.get('type', '') for tag in discover.tags] should produce
+        ['Country', 'City']
+        [tag.get('text', '') for tag in discover.tags] should produce
+        ['Venice']
+        and [tag.get('type', '') for tag in discover.tags] should produce
         ['StateOrCounty']
 
         This adapter can also be applied on ZCatalog brains
@@ -261,7 +240,8 @@ class IDiscoverGeoTags(IDiscoverAdapter):
         >>> discover = getAdapter(self.brain, IDiscoverAdapter, name='location')
 
         >>> discover.metadata = 'Title'
-        >>> [tag.get('text', '') for tag in discover.tags]
+
+        See above, [tag.get('text', '') for tag in discover.tags] should produce
         ['Spain', 'Valencia']
 
     """
@@ -280,15 +260,19 @@ class IDiscoverTags(IDiscoverAdapter):
         >>> discover = getAdapter(self.sandbox, IDiscoverAdapter,
         ...                       name=u'subject')
         >>> discover.metadata = 'title'
-        >>> [tag.get('text', '') for tag in discover.tags]
-        [u'new land cover']
+
+        #TODO update test when AlchemyAPI replacement is integrated
+        When an AlchemyAPI replacement will be ready,
+        something like [tag.get('text', '') for tag in discover.tags]
+        will produce [u'new land cover']
 
         This adapter can also be applied on ZCatalog brains
 
         >>> discover = getAdapter(self.brain, IDiscoverAdapter, name=u'subject')
         >>> discover.metadata = 'Title'
-        >>> [tag.get('text', '') for tag in discover.tags]
-        [u'new land cover']
+
+        and similarly to above, [tag.get('text', '') for tag in discover.tags]
+        will produce [u'new land cover']
 
     """
     title = schema.TextLine(title=_(u'Friendly name'))
