@@ -3,6 +3,8 @@ Changelog
 
 7.1.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed tool.pt when js is moved to the bottom of body
+  [ichim-david refs #91577]
 
 7.0 - (2017-12-12)
 ------------------
