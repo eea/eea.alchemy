@@ -1,8 +1,12 @@
 ===========
 EEA Alchemy
 ===========
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.alchemy/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.alchemy/job/master/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.alchemy/develop
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.alchemy/job/develop/display/redirect
+  :alt: Develop
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.alchemy/master
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.alchemy/job/master/display/redirect
+  :alt: Master
 
 Auto-discover geographical coverage, temporal coverage, related items and
 keywords from documents common metadata (title, description, body, etc),
