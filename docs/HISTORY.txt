@@ -1,6 +1,11 @@
 Changelog
 =========
 
+7.2-dev0 - (unreleased)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 7.1 - (2018-03-14)
 ------------------
 * Bug fix: fixed tool.pt when js is moved to the bottom of body
