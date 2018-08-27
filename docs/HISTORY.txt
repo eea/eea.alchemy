@@ -3,6 +3,8 @@ Changelog
 
 7.2-dev0 - (unreleased)
 ---------------------
+* Change: Get base-url from body data `base-url`
+  [avoinea refs #97843]
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 * Change: fixed the usage of BeautifulSoup

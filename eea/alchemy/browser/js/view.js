@@ -213,7 +213,7 @@ jQuery(document).ready(function(){
   }
 
   // Compute base link
-  base = jQuery('base').attr('href') || '';
+  base = jQuery('body').data('base-url') || jQuery('base').attr('href') || '';
 
   if(base && base.endswith('/view')){
     base = base.replace(/\/view$/g, '/');
