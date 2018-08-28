@@ -1,8 +1,22 @@
 Changelog
 =========
 
-7.0.dev0 - (unreleased)
------------------------
+7.2 - (2018-08-27)
+---------------------
+* Change: Get base-url from body data `base-url`
+  [avoinea refs #97843]
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+* Change: fixed the usage of BeautifulSoup
+  [alecghica refs #96974]
+
+7.1 - (2018-03-14)
+------------------
+* Bug fix: fixed tool.pt when js is moved to the bottom of body
+  [ichim-david refs #91577]
+
+7.0 - (2017-12-12)
+------------------
 * Change: Replace eeacms/zptlint with eeacms/plone-test:4 zptlint
   [avoinea refs #90415]
 * Change: Dropped AlchemyAPI integration

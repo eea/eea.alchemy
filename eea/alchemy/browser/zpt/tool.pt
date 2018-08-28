@@ -4,15 +4,18 @@
   i18n:domain="eea">
 <head>
 
-<metal:override fill-slot="top_slot">
+<metal:override fill-slot="javascript_head_slot">
 <tal:defines tal:define="
   dummy python:request.set('disable_border',1);
   disable_column_two python:request.set('disable_plone.leftcolumn',1);
   disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
 
-  <link rel="stylesheet" type="text/css" href="++resource++eea.alchemy.bootstrap.css" />
-  <link rel="stylesheet" type="text/css" href="++resource++eea.alchemy.tool.css" />
   <script type="text/javascript" src="++resource++eea.alchemy.tool.js"></script>
+</metal:override>
+
+<metal:override fill-slot="style_slot">
+    <link rel="stylesheet" type="text/css" href="++resource++eea.alchemy.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="++resource++eea.alchemy.tool.css" />
 </metal:override>
 
 </head>

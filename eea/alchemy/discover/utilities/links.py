@@ -12,7 +12,7 @@ class DiscoverLinks(object):
 
     def __call__(self, text="", match=""):
         match = match.replace('https://', 'http://')
-        soup = BeautifulSoup(text)
+        soup = BeautifulSoup(text, 'lxml')
 
         items = set()
         for link in soup.find_all('a'):
