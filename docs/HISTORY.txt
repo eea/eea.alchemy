@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.2-dev0 - (unreleased)
+7.2 - (2018-10-19)
 ---------------------
 * Bug fix: Fix auto-relations when /view within links
   [avoinea refs #99335]
