@@ -1,6 +1,11 @@
 Changelog
 =========
 
+7.2 - (2018-10-19)
+---------------------
+* Bug fix: Fix auto-relations when /view within links
+  [avoinea refs #99335]
+
 7.2 - (2018-08-27)
 ---------------------
 * Change: Get base-url from body data `base-url`
@@ -224,4 +229,3 @@ Changelog
 * Cleanup: of pylint violations
   [ichimdav #4140]
 * Initial release
-

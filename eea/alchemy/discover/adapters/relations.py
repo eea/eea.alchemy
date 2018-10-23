@@ -154,6 +154,8 @@ class DiscoverRelatedItems(Discover):
             nav_root = api.portal.get_navigation_root(doc)
             nav_root_path = '/'.join(nav_root.getPhysicalPath())
 
+            # Sanitize /view
+            text = text.split("/view")[0]
             obj = doc.unrestrictedTraverse(text, None)
             if obj is None:
                 obj = doc.unrestrictedTraverse(nav_root_path + '/' + text, None)
