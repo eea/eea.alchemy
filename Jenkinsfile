@@ -18,6 +18,7 @@ pipeline {
                    checkout scm
                    // requires SonarQube Scanner 2.8+
                    def scannerHome = tool 'SonarQubeScanner';
+                   def nodeJS = tool 'NodeJS11';
                    withSonarQubeEnv('Sonarqube') {
                       sh "${scannerHome}/bin/sonar-scanner -Dsonar.sources=./eea -Dsonar.projectKey=$GIT_NAME-$BRANCH_NAME -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
                    }
