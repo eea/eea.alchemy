@@ -57,7 +57,7 @@ class DiscoverRelatedItems(Discover):
                         self.field, doc.absolute_url(1))
             return
 
-        current = [IUUID(obj, None) for obj in field.getAccessor(doc)()]
+        current = field.getRaw(doc)
         tags = [tag.get('text') for tag in self.tags]
 
         if not set(tags).difference(current):
