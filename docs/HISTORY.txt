@@ -2,24 +2,24 @@ Changelog
 =========
 
 7.4-dev0 - (unreleased)
----------------------
+--------------------------
 * Change: allow auto-discovery of dexterity relations by using the raw values
   of the relatedItems field instead of using the accessor which removes the
   dexterity uuid
   [ichim-david refs #134485]
 
 7.3 - (2019-01-28)
----------------------
+--------------------------
 * Jenkins: Add sonarqube step
   [avoinea refs #101552]
 
 7.2 - (2018-10-19)
----------------------
+--------------------------
 * Bug fix: Fix auto-relations when /view within links
   [avoinea refs #99335]
 
 7.2 - (2018-08-27)
----------------------
+--------------------------
 * Change: Get base-url from body data `base-url`
   [avoinea refs #97843]
 * Change: updated URLs pointing to eea.europa.eu with https://
