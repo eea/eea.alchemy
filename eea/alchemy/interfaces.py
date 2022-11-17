@@ -339,3 +339,5 @@ class IDiscoverRelatedItems(IDiscoverAdapter):
         [<ATDocument at ...new-article>]
 
     """
+    title = schema.TextLine(title=_(u'Friendly name'))
+    title._type = (six.text_type, str)
