@@ -249,6 +249,8 @@ class IDiscoverGeoTags(IDiscoverAdapter):
 
     """
     title = schema.TextLine(title=_(u'Friendly name'))
+    title._type = (six.text_type, str)
+
     metadata = schema.List(title=_(u'Metadata'), value_type=schema.TextLine())
     tags = schema.Iterable(title=_(u'Tags'))
 
@@ -279,6 +281,8 @@ class IDiscoverTags(IDiscoverAdapter):
 
     """
     title = schema.TextLine(title=_(u'Friendly name'))
+    title._type = (six.text_type, str)
+
     metadata = schema.List(title=_(u'Metadata'), value_type=schema.TextLine())
     tags = schema.Iterable(title=_(u'Tags'))
 
@@ -306,6 +310,8 @@ class IDiscoverTime(IDiscoverAdapter):
 
     """
     title = schema.TextLine(title=_(u'Friendly name'))
+    title._type = (six.text_type, str)
+
     metadata = schema.List(title=_(u'Metadata'), value_type=schema.TextLine())
     tags = schema.Iterable(title=_(u'Tags'))
 
