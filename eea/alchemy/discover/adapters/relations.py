@@ -12,7 +12,7 @@ from plone.uuid.interfaces import IUUID
 from plone import api
 from eea.alchemy.interfaces import IDiscoverRelatedItems
 from eea.alchemy.interfaces import IDiscoverUtility
-from eea.alchemy.config import EEAMessageFactory as _
+# from eea.alchemy.config import EEAMessageFactory as _
 from eea.alchemy.discover.adapters import Discover
 from eea.alchemy.relations import canRelate
 logger = logging.getLogger('eea.alchemy')
