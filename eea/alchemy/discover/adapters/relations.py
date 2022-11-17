@@ -22,7 +22,9 @@ class DiscoverRelatedItems(Discover):
     """ Common adapter to auto-discover related items in context metadata
     """
     implements(IDiscoverRelatedItems)
-    title = _(u'Related items')
+    # title = _(u'Related items')
+    title = 'Related items'
+
 
     def __init__(self, context):
         super(DiscoverRelatedItems, self).__init__(context)
