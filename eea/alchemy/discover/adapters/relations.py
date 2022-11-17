@@ -1,6 +1,7 @@
 """ Auto-discover relatedItems
 """
 import logging
+import six
 from zope.interface import implements
 from zope.component import getUtility
 from zope.component.hooks import getSite
