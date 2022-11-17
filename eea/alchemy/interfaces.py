@@ -1,5 +1,6 @@
 """ EEA Alchemy public interfaces
 """
+import six
 from zope.interface import Interface
 from zope import schema
 from eea.alchemy.config import EEAMessageFactory as _
@@ -208,6 +209,8 @@ class IDiscoverAdapter(Interface):
 
     """
     title = schema.TextLine(title=_(u'Friendly name'))
+    title._type = (six.text_type, str)
+
     metadata = schema.List(title=_(u'Metadata'), value_type=schema.TextLine())
     tags = schema.Iterable(title=_(u'Tags'))
 

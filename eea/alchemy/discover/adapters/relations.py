@@ -1,7 +1,6 @@
 """ Auto-discover relatedItems
 """
 import logging
-import six
 from zope.interface import implements
 from zope.component import getUtility
 from zope.component.hooks import getSite
@@ -24,7 +23,6 @@ class DiscoverRelatedItems(Discover):
     """
     implements(IDiscoverRelatedItems)
     title = _(u'Related items')
-    title._type = (six.text_type, str)
 
     def __init__(self, context):
         super(DiscoverRelatedItems, self).__init__(context)
