@@ -23,7 +23,7 @@ class DiscoverRelatedItems(Discover):
     """
     implements(IDiscoverRelatedItems)
     # title = _(u'Related items')
-    title = _('Related items')
+    title = 'Related items'
 
 
     def __init__(self, context):
