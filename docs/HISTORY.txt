@@ -3,8 +3,7 @@ Changelog
 
 7.5-dev0 - (unreleased)
 ---------------------------
-* Change: Modified title type in relations adapter in order to bypass
-  invalid value error for factory unicode
+* Change: Set title type in interfaces using six for compatibility
   [iulianpetchesi refs #153129]
 
 7.4 - (2021-09-27)
